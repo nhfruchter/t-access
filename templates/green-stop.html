@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block body %}
+
+<header>
+	{% if not name %}
+	<h2>[<a href="/green">&larr;</a>] Stop doesn't exist</h2>
+	{% else %}
+	<h2>[<a href="/green">&larr;</a>] <span class="meta route">GL</span> {{name}}</h2>
+	<p>Accessible cars are in green, others in grey. </p>
+	{% endif %}
+</header>	
+
+{% if name %}
+<section id="predictions">
+	{% for direction, preds in data %}
+	<section class="direction-group direction-{{direction}}">
+		<h2 class="direction">
+			{% if direction == 1 %}Inbound{% endif %}
+			{% if direction == 0 %}Outbound{% endif %}
+		</h2>
+			{% if not preds %}
+				No predictions.
+			{% endif %}
+			{% for p in preds %}
+			{% if p.eta[0] == 0 and p.eta[1] <= 15 %}
+			<div class="prediction n-accessible-{{p.vehicle.whichAccessible}}">
+				<p class="topline">
+				<span class="meta route">{{p.route}}</span> 
+				to <span class="meta destination">{{p.vehicle.headsign}}</span>
+				<span class="eta">
+					&#x23F1;
+					{{ p.eta[1]}}:{{"{0:02d}".format(p.eta[2])}}
+					{% if p.eta[3] %}<em>(dep.)</em>{% endif %}
+				</span>
+				</p>
+				<div class="cars">
+					{{p.vehicle.n}} car{% if p.vehicle.n>1 %}s{% endif %}, 
+					{% if p.vehicle.whichAccessible == "none" %}
+					none accessible
+					{% else %}
+					board {{p.vehicle.whichAccessible}} 
+					{% endif %}
+					{% if p.vehicle.nAccessible < 3 %}
+					&mdash;
+					{% else %}
+					<br /><br />
+					{% endif %}
+					{% for car, access in p.vehicle.cars %}
+					<div class="car car-{{car}} accessible-{{access}}">
+						{% if access %}&#x267F; {% endif %}{{ car }}
+					</div>	
+					{% endfor %}
+				</div>	
+			</div>	
+			{% endif %}
+			{% endfor %}
+	</section>	
+	{% else %}
+	<h2>No trains at this stop.</h2>
+	{% endfor %} 
+</section>	
+{% endif %}
+{% endblock %}

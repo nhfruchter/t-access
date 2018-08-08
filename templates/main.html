@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<header>
+	<h1>MBTA Accessibility Alerts</h1> 
+	<h2>{{alerts.n}} active alerts at |
+		{% for loc in alerts.allStations %}
+		<a href="#{{loc.replace(' ', '-')}}">{{loc}}</a> |
+		{% endfor %}
+	</h2>
+</header>	
+<section id="alerts">
+{% for loc, alerts in alerts.alerts %}
+	<div class="station">
+		<a name="{{loc.replace(' ', '-')}}"></a>
+		<h1 class="location">{{loc}}</h1>
+		{% for alert in alerts %}
+		<div class="alert">
+			<h1 class="effect">{{alert.txt_effect}}</h1>
+			<h2 class="blurb">{{alert.txt_blurb}}</h2>
+			{% if alert.txt_active_for %}
+			<span class="meta active_for">Until: <strong>{{alert.txt_active_for}}</strong></span>
+			{% endif %}
+			{% if alert.activities %}
+			<span class="meta activity">May be a problem if: <strong>{{ ",".join(alert.activities) }}</strong>.</span>
+			{% endif %}
+			{% if alert.txt_description %}
+			<p class="description">{{alert.txt_description}}</p>
+			{% else %}
+			<p class="description">No further description given.</p>
+			{% endif %}
+		</div>	
+		{% endfor %}
+	</div>	
+{% endfor %}
+</section>
+{% endblock %}

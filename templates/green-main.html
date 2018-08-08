@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block body %}
+<header>
+	<h1>MBTA Green Line Accessibility</h1>
+	<h2>Find a stop and see which trolley cars are accessible.</h2>
+</header>	
+<section id="glChooser" aria-role="search">
+	<form method="get" action="">
+	<input class="awesomplete" id="glComplete" placeholder="Find a stop (autocomplete)..." type="text" required/>
+	
+	<datalist id="glStops">
+		{% for stop in stops %}
+		<option>{{ stop }}</option>			
+		{% endfor %}
+	</datalist>	
+</section>	
+{% endblock %}
+
+{% block includes %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.base.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.theme.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js" integrity="sha256-xA+USAVmEnBnz1FiLRSG8xglJflQVHmQvbx5+u4bslk=" crossorigin="anonymous"></script>
+<script>
+	var input = document.getElementById("glComplete");
+	new Awesomplete(input, {
+		list: [
+			{% for stop, code in stops.items() %}
+			{label: "{{stop}}", value: "{{code}}"},
+			{% endfor %}
+		]
+	})
+	
+	var glSubmit = function() {
+		window.location = "/green/" + document.getElementById("glComplete").value;
+	}
+	
+	document.addEventListener('awesomplete-selectcomplete', function(e) {
+		window.location = "/green/" + e.text.value;
+	})
+</script>
+{% endblock %}
