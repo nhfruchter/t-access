@@ -1,0 +1,121 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	border-top: 5px solid black;
+}
+a {
+    color: darkblue;
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+a:hover {
+	color: blue;
+}
+nav {
+	text-align: right;
+}
+#container {
+	max-width: 85vw;
+	margin: 0 auto;
+}
+footer {
+	border-top: 1px dashed #aaa;
+	margin-top: 2em;
+}
+footer p, footer p a {	
+	color: #888;
+	text-transform: uppercase;
+	font-size: 0.6em;
+	letter-spacing: 1px;
+}
+header h2 {
+	font-weight: 400;
+	padding-bottom: 0.5em;			
+	border-bottom: 1px solid #000;
+	
+}
+.alert {
+	border-bottom: 1px dotted #888;
+}
+.alert h1 {
+	font-size: 135%;
+}
+.alert h2 {
+	font-size: 110%;
+	font-weight: 500;
+}
+.meta { 
+	padding: 0.25rem;
+	line-height: 2rem;
+	background: #ddd;
+}
+.meta.route {
+	background: green;
+	color: white;
+	font-weight: 500;
+	border-radius: 15px;
+}
+.meta.destination {
+	font-weight: 400;
+}
+h1.location { color: red;}
+#glChooser input#glComplete {
+	border: 1px solid green;
+	padding: 1em;
+	font-size: 120%;
+	width: 65vw;
+	color: green;
+}
+.prediction { 
+	border-bottom: 1px dotted #000;
+	padding-bottom: 1em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+.prediction .topline {
+	font-size: 115%;
+}
+.prediction .eta {
+	float: right;
+}
+.prediction .car {
+    border: 2px solid green;
+    width: 4em;
+	height: 2em;
+    text-align: center;
+    padding: 0.5em;
+    display: inline;
+    margin-right: 0.5em;
+    background: green;
+    color: white;
+	font-size: 80%;
+}
+.prediction.n-accessible-none {
+	background: #FDD7E5;
+	padding-top: 0.01em;
+	
+}
+.prediction .car:last-child {
+	border-radius: 0px 10px 10px 0px;
+}
+.prediction .car:last-child::after {
+	content: "➤";
+}
+.prediction .car.accessible-False {
+    background: #eee;
+    color: #888;
+    border: 2px solid rgba(0, 255, 0, .1);		
+}
+#predictions section.direction-group .prediction:last-child {
+	border-bottom: none;
+}
+h2.direction {
+	border-bottom: 2px solid;
+	padding-bottom: 0.5em;
+}
+#predictions section.direction-group .prediction:nth-child(2n+1) {
+	background: #ebfeee;
+	padding-left: 0.5em;
+	padding-top: 0.01em;
+}
