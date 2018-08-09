@@ -88,7 +88,7 @@ def processGreenlinePredictions(result):
                 if all(state):
                     answer = "any"
                 return answer    
-            # l o n g b o i
+            # L O N G B O I
             # 3+ cars aren't run in regular service    
             else:    
                 raise ValueError("This vehicle is too long")
